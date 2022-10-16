@@ -1,0 +1,85 @@
+
+<!DOCTYPE html> 
+<html> 
+      <head> 
+         <title>Avatar</title> 
+
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <style>
+            .circle {
+                width: 130px;
+                height: 130px;
+                border-radius: 50%;
+                float: left;
+                margin-right: 50px;
+                margin-bottom: 30px;
+                margin-top: 20px;
+                border: 1px solid black;
+            }
+            input {
+                padding: 10px;
+                border: 1px solid white;
+            }
+
+            input:hover {
+                cursor: pointer;
+                border: 1px solid black;
+            }
+ 
+        </style>
+        
+        <script language="javascript">
+
+            let contador = 0;
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var inicio = document.createElement('div');
+                inicio.id = 'divMae';
+                var cores = ["red", "green", "blue", "pink", "yellow", "black", "white"];
+                var novoParagrafo = document.createElement('h3');
+                
+                var text = document.createTextNode("Escolha qualquer cor para criar círculos coloridos!");
+                inicio.appendChild(novoParagrafo);
+                novoParagrafo.appendChild(text);
+                
+
+                cores.forEach(function(cor) {
+                    var button = document.createElement('input');
+                    button.type = 'button';
+                    button.value = cor;
+                    button.id = 'btn';
+                    button.style.backgroundColor = cor;
+                    button.onclick = () => createCircle(button);
+                    inicio.appendChild(button);
+                });
+
+                
+                document.body.appendChild(inicio);    
+            }, false);
+
+            function createCircle(el) {
+                let div = document.createElement('div');
+                //let divMae = document.getElementById("divMae");
+                div.id = (el.value + '-circle' + contador.toString());
+                div.className = 'circle';
+                div.style.backgroundColor = el.value;
+                div.title = 'Clique e me apague!';
+                div.onclick = function(){
+                    document.getElementById(div.id.toString()).style.display = "none";
+                }
+ 
+                document.body.appendChild(div);
+                contador++;
+            }
+
+            
+         </script>
+         
+         
+     </head>
+    <body>
+   </body> 
+</html>
