@@ -8,74 +8,109 @@
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <style>
+        <style type="text/css">
+
+            div#divMae {
+                width: auto;
+                margin: 2em auto;
+                padding: 30px;
+                background-color: rgb(93, 204, 204);
+                border-radius: 1em;
+
+            }
+
             .circle {
                 width: 130px;
                 height: 130px;
                 border-radius: 50%;
                 float: left;
-                margin-right: 50px;
-                margin-bottom: 30px;
+                margin-right: 25px;
+                margin-bottom: 5px;
                 margin-top: 20px;
                 border: 1px solid black;
             }
-            input {
+            button {
                 padding: 10px;
-                border: 1px solid white;
+                border-radius: 25%;
             }
 
-            input:hover {
+            button:hover {
                 cursor: pointer;
-                border: 1px solid black;
+                border: 2px solid black;
             }
  
         </style>
         
         <script language="javascript">
 
+            //cada círculo (div) terá um nome (id) diferente e uma cor
             let contador = 0;
+            let cores = ["red", "green", "blue", "pink", "yellow", "black", "white"];
+            let circles = []; 
 
             document.addEventListener('DOMContentLoaded', function() {
-                var inicio = document.createElement('div');
-                inicio.id = 'divMae';
-                var cores = ["red", "green", "blue", "pink", "yellow", "black", "white"];
-                var novoParagrafo = document.createElement('h3');
+
+                //criando menu
+                // --- criando div1 do menu
+                var one = document.createElement('div');
+                one.id = "divMae";
                 
-                var text = document.createTextNode("Escolha qualquer cor para criar círculos coloridos!");
-                inicio.appendChild(novoParagrafo);
+                /* --- acrescentando na div do menu o título da opção 1 - "criar um círculo  
+                da cor escolhida" --- */
+                var novoParagrafo = document.createElement('h2');
+                var text = document.createTextNode("Crie círculos de acordo com a cor escolhida!");
+                one.appendChild(novoParagrafo);
                 novoParagrafo.appendChild(text);
                 
-
+                // --- acrescentando a mini paleta de cores na div do menu
                 cores.forEach(function(cor) {
-                    var button = document.createElement('input');
+                    var button = document.createElement('button');
                     button.type = 'button';
                     button.value = cor;
                     button.id = 'btn';
                     button.style.backgroundColor = cor;
                     button.onclick = () => createCircle(button);
-                    inicio.appendChild(button);
+                    one.appendChild(button);
                 });
 
+                var read = document.createElement('p');
+                var readme = document.createTextNode("OBS: Para deixar visível todos os círculos que estão ocultos, pressione Ctrl+Esc")
+                read.appendChild(readme);
+                one.appendChild(read);
+
+
+                // --- deixa visível todos os círculos ocultos
+                window.onkeydown = function (event) {
+                    if (event.ctrlKey && event.key === "Escape") {
+                        circles.forEach(element => {
+                            document.getElementById(element).style.display = "block";
+                        });
+                        
+                    }
+                }
+
                 
-                document.body.appendChild(inicio);    
+                document.body.appendChild(one);
+                    
             }, false);
 
+            // --- função que cria o circulo da cor escolhida
             function createCircle(el) {
                 let div = document.createElement('div');
-                //let divMae = document.getElementById("divMae");
                 div.id = (el.value + '-circle' + contador.toString());
                 div.className = 'circle';
                 div.style.backgroundColor = el.value;
                 div.title = 'Clique e me apague!';
                 div.onclick = function(){
+                    circles.push(div.id.toString());
                     document.getElementById(div.id.toString()).style.display = "none";
                 }
+                
  
                 document.body.appendChild(div);
                 contador++;
             }
-
-            
+  
          </script>
          
          
